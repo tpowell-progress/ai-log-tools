@@ -121,8 +121,8 @@ If you prefer to manually configure:
 {
   "mcpServers": {
     "buildkite-logs": {
-      "command": "python3",
-      "args": ["/path/to/buildkite_logs_server.py"],
+      "command": "pwsh",
+      "args": ["-NoLogo", "-NoProfile", "-File", "/path/to/buildkite_logs_server.ps1"],
       "env": {
         "BK_CHEF_ONLY_2024": "your-api-token"
       }
@@ -184,7 +184,7 @@ Add to your shell profile (`~/.bashrc`, `~/.zshrc`, etc.) to make it permanent:
 export BK_CHEF_ONLY_2024="your-buildkite-api-token"
 ```
 
-### "buildkite_logs_server.py not found"
+### "buildkite_logs_server.ps1 not found"
 
 Ensure the script is in the same directory as `install_mcp_server.sh`, or use `--server-dir`:
 ```bash
@@ -199,7 +199,7 @@ Ensure the script is in the same directory as `install_mcp_server.sh`, or use `-
 
 ## Architecture
 
-- **`buildkite_logs_server.py`** - MCP server implementing the Model Context Protocol
+- **`buildkite_logs_server.ps1`** - MCP server implementing the Model Context Protocol
 - **`distill_log.py`** - Core distillation logic (reused by both CLI and MCP server)
 - **`download_buildkite_log.sh`** - Command-line tool for direct API access
 - **`install_mcp_server.sh`** - Automated installer and configuration manager
