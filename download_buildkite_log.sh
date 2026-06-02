@@ -6,7 +6,7 @@
 #   download_buildkite_log.sh <org> <pipeline> <job_id> [output_file]
 #
 # Examples:
-#   # Download from chef/chef-chef-chef-18-validate-adhoc
+#   # Download from the default org/pipeline
 #   download_buildkite_log.sh 019e7621-8db2-4d3a-8541-d78b910bd808
 #
 #   # Download from custom org/pipeline
@@ -21,7 +21,7 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 DISTILL_SCRIPT="$SCRIPT_DIR/distill_log.py"
 
-# Default org/pipeline for Chef
+# Default org/pipeline
 DEFAULT_ORG="chef"
 DEFAULT_PIPELINE="chef-chef-chef-18-validate-adhoc"
 

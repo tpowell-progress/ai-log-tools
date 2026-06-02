@@ -54,7 +54,7 @@ cat huge.log | python3 distill_log.py > small.txt
 
 2. **Set up Buildkite API token:**
    ```bash
-   export BK_CHEF_ONLY_2024="your-api-token"
+   export BUILDKITE_TOKEN="your-api-token"
    # Or source from ~/.env
    ```
 
@@ -126,4 +126,4 @@ Improvements welcome! Consider adding:
 
 ## License
 
-MIT (or whatever Chef uses for internal tools)
+MIT
