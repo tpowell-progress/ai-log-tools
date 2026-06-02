@@ -88,7 +88,7 @@ cat huge.log | python3 distill_log.py > small.txt
 
 2. **Set up Buildkite API token:**
    ```bash
-   export BK_CHEF_ONLY_2024="your-api-token"
+   export BK_API_TOKEN="your-api-token"
    # Or source from ~/.env
    ```
 
@@ -103,6 +103,8 @@ cat huge.log | python3 distill_log.py > small.txt
 - **UUIDs:** `019e7621-8db2-4d3a-8541-d78b910bd808` → `[UUID]`
 - **Git SHAs:** `39b18ac3c1` → `[SHA]`
 - **Progress bars:** `[===========>    ]` → removed
+- **Git operation progress:** `remote: Compressing objects: 41% (62/150)` → removed
+- **Fetch progress:** `Receiving objects: 27% (601/2225)` → removed
 - **Repetitive output:** Multiple identical "Fetching..." lines → single line
 - **ANSI codes:** `\x1b[32m` → removed
 - **Empty lines:** Collapsed
