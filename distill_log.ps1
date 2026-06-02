@@ -63,6 +63,11 @@ function Distill-Log {
             continue
         }
 
+        # Skip git operation progress lines (remote: Compressing objects: 41% (62/150), etc)
+        if ($line -match '(remote:\s+)?(\w+\s+)*\w+:\s+\d+%\s+\(\d+/\d+\)') {
+            continue
+        }
+
         # Skip empty lines
         if (-not $line.Trim()) {
             continue
