@@ -39,7 +39,7 @@ sed -i 's|SCRIPT_DIR|'"$(pwd)"'|g' logs-distiller.mcp.json
 .\download_buildkite_log.ps1 'https://buildkite.com/org/pipeline/builds/123'
 
 # Example with specific job
-.\download_buildkite_log.ps1 'https://buildkite.com/chef-oss/chef-chef-main-verify/builds/23274/canvas?sid=019e65e5-4043-4079-b1ec-bce7c586e1a2'
+.\download_buildkite_log.ps1 'https://buildkite.com/chef-oss/chef-chef-main-verify/builds/23274'
 ```
 
 #### Buildkite (Bash/Linux/Mac)
@@ -117,7 +117,7 @@ Unified distiller reduces log volume by **90-98%** while keeping what matters:
 ### Requirements
 
 - Python 3.7+
-- PowerShell 7+ (optional, for Windows PowerShell scripts)
+- PowerShell 7+ (optional, for PowerShell scripts on Windows)
 - `curl` (for downloading logs)
 - Buildkite API token (from [buildkite.com/user/api-tokens](https://buildkite.com/user/api-tokens))
 - GitHub API token (from [github.com/settings/tokens](https://github.com/settings/tokens)) - optional
