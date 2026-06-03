@@ -26,7 +26,23 @@ sed -i 's|SCRIPT_DIR|'"$(pwd)"'|g' logs-distiller.mcp.json
 
 ### Option 2: Command Line
 
-#### Buildkite
+**distill_log** (Python/PowerShell/Bash) reduces log volume by ~95-98% while keeping what matters:
+- ✓ Error messages and stack traces
+- ✓ Dependency conflicts
+- ✓ Command output and exit codes
+- ✓ File paths and line numbers
+
+#### Buildkite (PowerShell - Windows)
+
+```powershell
+# Download and distill a Buildkite job log from URL
+.\download_buildkite_log.ps1 'https://buildkite.com/org/pipeline/builds/123'
+
+# Example with specific job
+.\download_buildkite_log.ps1 'https://buildkite.com/chef-oss/chef-chef-main-verify/builds/23274/canvas?sid=019e65e5-4043-4079-b1ec-bce7c586e1a2'
+```
+
+#### Buildkite (Bash/Linux/Mac)
 
 ```bash
 # Download and distill a Buildkite job log
@@ -34,8 +50,18 @@ sed -i 's|SCRIPT_DIR|'"$(pwd)"'|g' logs-distiller.mcp.json
 
 # Example
 ./download_buildkite_log.sh 019e7621-8db2-4d3a-8541-d78b910bd808
+```
 
-# Distill existing log
+#### Distill an existing Buildkite log file
+
+**PowerShell:**
+```powershell
+.\distill_log.ps1 raw.log > distilled.txt
+Get-Content huge.log | .\distill_log.ps1 > small.txt
+```
+
+**Python/Bash:**
+```bash
 python3 distill_log.py raw.log > distilled.txt
 cat huge.log | python3 distill_log.py > small.txt
 ```
@@ -52,6 +78,12 @@ cat huge.log | python3 distill_log.py > small.txt
 # Distill existing log
 python3 distill_github_actions_log.py raw.log > distilled.txt
 cat huge.log | python3 distill_github_actions_log.py > small.txt
+```
+
+#### Custom output location (PowerShell)
+
+```powershell
+.\download_buildkite_log.ps1 'https://buildkite.com/org/pipeline/builds/123' -OutputFile 'C:\logs\distilled.txt'
 ```
 
 ## Problem
@@ -85,10 +117,41 @@ Unified distiller reduces log volume by **90-98%** while keeping what matters:
 ### Requirements
 
 - Python 3.7+
+- PowerShell 7+ (optional, for Windows PowerShell scripts)
 - `curl` (for downloading logs)
 - Buildkite API token (from [buildkite.com/user/api-tokens](https://buildkite.com/user/api-tokens))
 - GitHub API token (from [github.com/settings/tokens](https://github.com/settings/tokens)) - optional
 - `gh` CLI (optional, for GitHub Actions)
+
+### PowerShell (Windows)
+
+1. **Install dependencies:** None! Uses .NET Framework built-ins.
+
+2. **Set up Buildkite API token:**
+   ```powershell
+   $env:BK_API_TOKEN = 'your-api-token'
+   # Or add to your PowerShell profile for persistence
+   ```
+
+3. **Make scripts executable:**
+   ```powershell
+   Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+   ```
+
+### Python/Bash (Linux/Mac)
+
+1. **Install dependencies:** None! Uses standard Python 3 libraries.
+
+2. **Set up Buildkite API token:**
+   ```bash
+   export BK_API_TOKEN="your-api-token"
+   # Or source from ~/.env
+   ```
+
+3. **Make scripts executable:**
+   ```bash
+   chmod +x distill_log.py download_buildkite_log.sh download_github_actions_log.sh
+   ```
 
 ### Installation
 
@@ -113,7 +176,9 @@ echo 'export GITHUB_TOKEN="..."' >> ~/.bashrc
 
 ### Buildkite
 - `distill_log.py` - Core distillation logic
+- `distill_log.ps1` - PowerShell distillation script
 - `download_buildkite_log.sh` - CLI tool to download and distill
+- `download_buildkite_log.ps1` - PowerShell CLI tool to download and distill
 - `buildkite_logs_server.py` - MCP server (legacy)
 
 ### GitHub Actions
@@ -154,6 +219,8 @@ echo 'export GITHUB_TOKEN="..."' >> ~/.bashrc
 - GitHub Actions markers: `##[group]`, `##[endgroup]`, `##[debug]`
 - GitHub URLs and API URLs
 - Attempt markers
+- Git operation progress: `remote: Compressing objects: 41% (62/150)` → removed
+- Fetch progress: `Receiving objects: 27% (601/2225)` → removed
 
 ## What Gets Kept
 
@@ -199,6 +266,9 @@ Bundler could not find compatible versions for gem "pry":
 - **Large Logs:** Distilled logs load faster and are easier to scan
 - **Debugging:** Keep both raw and distilled - raw for complete history, distilled for analysis
 - **CI/CD:** Integrate into pipelines for automated log analysis
+- **For AI analysis:** Feed the distilled log to save ~97% of tokens
+- **For CI failures:** Download failed job logs automatically and distill for quick triage
+- **URL format:** Paste the full Buildkite build URL directly into `download_buildkite_log.ps1` — no need to parse org/pipeline/build manually
 
 ## Architecture
 
