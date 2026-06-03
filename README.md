@@ -117,7 +117,7 @@ Unified distiller reduces log volume by **90-98%** while keeping what matters:
 ### Requirements
 
 - Python 3.7+
-- PowerShell 7+ (optional, for PowerShell scripts on Windows)
+- PowerShell 7+ (optional, for the PowerShell scripts)
 - `curl` (for downloading logs)
 - Buildkite API token (from [buildkite.com/user/api-tokens](https://buildkite.com/user/api-tokens))
 - GitHub API token (from [github.com/settings/tokens](https://github.com/settings/tokens)) - optional
