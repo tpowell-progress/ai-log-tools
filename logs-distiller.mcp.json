@@ -1,0 +1,11 @@
+{
+  "name": "logs-distiller",
+  "command": "python3",
+  "args": ["SCRIPT_DIR/logs_distiller_server.py"],
+  "env": {
+    "BK_CHEF_ONLY_2024": "${BK_CHEF_ONLY_2024}",
+    "BUILDKITE_TOKEN": "${BUILDKITE_TOKEN}",
+    "GITHUB_TOKEN": "${GITHUB_TOKEN}",
+    "GH_TOKEN": "${GH_TOKEN}"
+  }
+}
